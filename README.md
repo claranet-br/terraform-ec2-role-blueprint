@@ -1,7 +1,7 @@
 Generic EC2 Role blueprint
 ===================================
 
-This module creates a Role with an EC2 instance profile associated with it and, optionally, associate a bunch of IAM managed policies to the role.
+This module creates an AIM Role with an AIM EC2 instance profile associated with it and, optionally, attach a set of IAM Managed Policies to the Role.
 
 # Use
 

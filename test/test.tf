@@ -13,9 +13,25 @@
  */
 variable account {}
 
+resource "aws_iam_policy" "sample_policy_1" {
+  name = "acme-sample-policy-1"
+  policy = "${file("templates/sample-policy-1.json")}"
+}
+
+resource "aws_iam_policy" "sample_policy_2" {
+  name = "acme-sample-policy-2"
+  policy = "${file("templates/sample-policy-2.json")}"
+}
+
 // Call the module
 module "test_role" {
   source = "../"
 
   account = "${var.account}"
+  name = "acme-test"
+  policies_arn = [
+    "${aws_iam_policy.sample_policy_1.arn}",
+    "${aws_iam_policy.sample_policy_2.arn}"
+  ]
+  policies_count = 2
 }
