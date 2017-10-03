@@ -1,8 +1,3 @@
-variable "account" {
-  type = "string"
-  description = "The AWS account number ID"
-}
-
 variable "name" {
   type = "string"
   description = "A name for the role and instance profile"
