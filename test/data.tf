@@ -5,6 +5,7 @@ variable account {}
 locals {
   name            = "acme-test"
   path            = "/tests/"
+  description     = "A test role"
   policies_arn    = [
     "${aws_iam_policy.sample_policy_1.arn}",
     "${aws_iam_policy.sample_policy_2.arn}"
