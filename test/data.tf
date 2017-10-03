@@ -4,7 +4,7 @@ variable account {}
 // Static values
 locals {
   name            = "acme-test"
-  path            = "/tests"
+  path            = "/tests/"
   policies_arn    = [
     "${aws_iam_policy.sample_policy_1.arn}",
     "${aws_iam_policy.sample_policy_2.arn}"
