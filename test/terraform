@@ -1,0 +1,6 @@
+#!/bin/bash
+
+TERRAFORM=${TERRAFORM:-terraform}
+
+$TERRAFORM init
+$TERRAFORM $@ -var account=${AWS_ACCOUNT_ID} || exit 1
