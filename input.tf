@@ -9,6 +9,12 @@ variable "path" {
   default = "/"
 }
 
+variable "description" {
+  type = "string"
+  description = "The role description"
+  default = ""
+}
+
 variable "policies_arn" {
   type = "list"
   description = "An optional list of IAM Managed Policies ARN to attach to the role (default: none)"
@@ -19,10 +25,4 @@ variable "policies_count" {
   type = "string"
   description = "How many polices has been passed on policies_arn input parameter"
   default = "0"
-}
-
-variable "description" {
-  type = "string"
-  description = "The role description"
-  default = ""
 }
