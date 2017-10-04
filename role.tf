@@ -10,6 +10,7 @@ resource "aws_iam_role" "this" {
 }
 
 output "role" {
+  description = "Map for EC2 role values"
   value = {
     arn         = "${aws_iam_role.this.arn}"
     create_date = "${aws_iam_role.this.create_date}"

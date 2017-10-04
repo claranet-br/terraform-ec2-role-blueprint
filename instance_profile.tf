@@ -9,6 +9,7 @@ resource "aws_iam_instance_profile" "this" {
 }
 
 output "instance_profile" {
+  description = "Map for EC2 instance profile values"
   value = {
     id          = "${aws_iam_instance_profile.this.id}"
     arn         = "${aws_iam_instance_profile.this.arn}"
