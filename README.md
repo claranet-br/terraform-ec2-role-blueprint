@@ -41,12 +41,12 @@ The following parameters are used on this module:
 
 This are the outputs exposed by this module.
 
-- `instance_profile`: the values for the EC2 instance profile.
+* `instance_profile`: the values for the EC2 instance profile.
   - `arn`: The instance profile Amazon Resource Name.
   - `id`: The instance profile name.
   - `path`: The instance profile path.
   - `unique_id`: The instance profile unique id inside. AWS.
-- `role`: The values for the EC2 role.
+* `role`: The values for the EC2 role.
   - `arn`: The role Amazon Resource Name
   - `create_date`: The role creation date.
   - `description`: The role description.
