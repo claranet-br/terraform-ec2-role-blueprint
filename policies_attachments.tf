@@ -1,6 +1,10 @@
-resource "aws_iam_role_policy_attachment" "ec2_role_attachments" {
-    role        = "${aws_iam_role.ec2_role.name}"
-    policy_arn  = "${element(var.policies_arn, count.index)}"
+resource "aws_iam_role_policy_attachment" "this" {
+  lifecycle {
+    create_before_destroy = true
+  }
 
-    count       = "${var.policies_count}"
+  role        = "${aws_iam_role.this.name}"
+  policy_arn  = "${element(var.policies_arn, count.index)}"
+
+  count       = "${var.policies_count}"
 }
