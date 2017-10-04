@@ -37,6 +37,30 @@ The following parameters are used on this module:
 - `policies_arn`: a list of policies ARN to attach with this role (default: `[]`). **If you use this parameter, you need to set the `policies_count` parameter bellow**.
 - `policies_count`: the number of policies ARN to attach with the EC2 role (default: `0`). **Must be in sync with the number of policies_arn on the parameter above**.
 
+## Managed policies ARN
+
+This blueprint assumes you does not using embbeded policies, and uses managed policies instead. For this function without issues when creating custom policies stick with the habit to declare them with name_prefix and create before destroy lifecycle. For example (extract from `test` directory):
+
+```
+data "aws_iam_policy_document" "sample_policy_1" {
+  statement {
+    sid = "DescribeEC2"
+    effect = "Allow"
+    actions = ["ec2:Describe*"]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "sample_policy_1" {
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  name_prefix = "sample-policy-1-${local.name}"
+  policy      = "${data.aws_iam_policy_document.sample_policy_1.json}"
+}
+```
+
 ## Output parameters
 
 This are the outputs exposed by this module.
