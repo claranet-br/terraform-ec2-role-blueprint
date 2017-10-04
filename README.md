@@ -32,10 +32,10 @@ The version 1.0.0 and above are created to be used with Terraform 0.10 (possibly
 The following parameters are used on this module:
 
 - `name`: the name prefix for all resources created on this blueprint.
-- `path`: the IAM path for the Role and Profile (default: "/").
-- `description`: a optional description for the EC2 role (default: "").
-- `policies_arn`: a list of policies ARN to attach with this role (default: []). **If you use this parameter, you need to set the `policies_count` parameter bellow**.
-- `policies_count`: the number of policies ARN to attach with the EC2 role. **Must be in sync with the number of policies_arn on the parameter above**.
+- `path`: the IAM path for the Role and Profile (default: `"/"`).
+- `description`: a optional description for the EC2 role (default: `""`).
+- `policies_arn`: a list of policies ARN to attach with this role (default: `[]`). **If you use this parameter, you need to set the `policies_count` parameter bellow**.
+- `policies_count`: the number of policies ARN to attach with the EC2 role (default: `0`). **Must be in sync with the number of policies_arn on the parameter above**.
 
 ## Output parameters
 
