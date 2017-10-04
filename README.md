@@ -32,24 +32,48 @@ The version 1.0.0 and above are created to be used with Terraform 0.10 (possibly
 The following parameters are used on this module:
 
 - `name`: the name prefix for all resources created on this blueprint.
-- `path`: the IAM path for the Role and Profile (default: "/").
-- `description`: a optional description for the EC2 role (default: "").
-- `policies_arn`: a list of policies ARN to attach with this role (default: []). **If you use this parameter, you need to set the `policies_count` parameter bellow**.
-- `policies_count`: the number of policies ARN to attach with the EC2 role. **Must be in sync with the number of policies_arn on the parameter above**.
+- `path`: the IAM path for the Role and Profile (default: `"/"`).
+- `description`: a optional description for the EC2 role (default: `""`).
+- `policies_arn`: a list of policies ARN to attach with this role (default: `[]`). **If you use this parameter, you need to set the `policies_count` parameter bellow**.
+- `policies_count`: the number of policies ARN to attach with the EC2 role (default: `0`). **Must be in sync with the number of policies_arn on the parameter above**.
+
+## Managed policies ARN
+
+This blueprint assumes you does not using embbeded policies, and uses managed policies instead. For this function without issues when creating custom policies stick with the habit to declare them with name_prefix and create before destroy lifecycle. For example (extract from `test` directory):
+
+```
+data "aws_iam_policy_document" "sample_policy_1" {
+  statement {
+    sid = "DescribeEC2"
+    effect = "Allow"
+    actions = ["ec2:Describe*"]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "sample_policy_1" {
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  name_prefix = "sample-policy-1-${local.name}"
+  policy      = "${data.aws_iam_policy_document.sample_policy_1.json}"
+}
+```
 
 ## Output parameters
 
 This are the outputs exposed by this module.
 
-- `instance_profile`: the values for the EC2 instance profile.
-  - `arn`: The instance profile Amazon Resource Name.
-  - `id`: The instance profile name.
-  - `path`: The instance profile path.
-  - `unique_id`: The instance profile unique id inside. AWS.
-- `role`: The values for the EC2 role.
-  - `arn`: The role Amazon Resource Name
-  - `create_date`: The role creation date.
-  - `description`: The role description.
-  - `name`: The role name.
-  - `unique_id`: The role unique id inside AWS.
+* `instance_profile`: the values for the EC2 instance profile.
+    - `arn`: The instance profile Amazon Resource Name.
+    - `id`: The instance profile name.
+    - `path`: The instance profile path.
+    - `unique_id`: The instance profile unique id inside. AWS.
+* `role`: The values for the EC2 role.
+    - `arn`: The role Amazon Resource Name
+    - `create_date`: The role creation date.
+    - `description`: The role description.
+    - `name`: The role name.
+    - `unique_id`: The role unique id inside AWS.
 }
