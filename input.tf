@@ -1,8 +1,3 @@
-variable "account" {
-  type = "string"
-  description = "The AWS account number ID"
-}
-
 variable "name" {
   type = "string"
   description = "A name for the role and instance profile"
@@ -12,6 +7,12 @@ variable "path" {
   type = "string"
   description = "The role context path (default: /)"
   default = "/"
+}
+
+variable "description" {
+  type = "string"
+  description = "The role description"
+  default = ""
 }
 
 variable "policies_arn" {

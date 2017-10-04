@@ -1,8 +1,19 @@
-resource "aws_iam_instance_profile" "ec2_profile" {
-  name = "${var.name}"
-  path = "${var.path}"
+resource "aws_iam_instance_profile" "this" {
+  lifecycle {
+    create_before_destroy = true
+  }
 
-  roles = [
-    "${aws_iam_role.ec2_role.name}"
-  ]
+  name_prefix = "${var.name}-"
+  path        = "${var.path}"
+  role        = "${aws_iam_role.this.name}"
+}
+
+output "instance_profile" {
+  description = "Map for EC2 instance profile values"
+  value = {
+    id          = "${aws_iam_instance_profile.this.id}"
+    arn         = "${aws_iam_instance_profile.this.arn}"
+    path        = "${aws_iam_instance_profile.this.path}"
+    unique_id   = "${aws_iam_instance_profile.this.unique_id}"
+  }
 }
